@@ -3,7 +3,6 @@ import torch
 import torchvision
 import torch.multiprocessing as mp
 import numpy as np
-import matplotlib.pyplot as plt
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.distributed as dist
@@ -15,6 +14,7 @@ from torchvision.utils import make_grid
 from torch.utils.data.dataloader import DataLoader
 from torch.utils.data import random_split
 from torch.utils.tensorboard import SummaryWriter
+from torch.utils.data.distributed import DistributedSampler
 
 
 # For deterministic runs
@@ -48,7 +48,7 @@ def main():
 
 def load_datasets(batch_size, world_size, rank):
   # Task 1: Choose an appropriate directory to download the datasets into
-  root_dir = "./datasets"
+  root_dir = '../datasets'
 
   extra_dataset = SVHN(root=root_dir, split='extra', download=True, transform=ToTensor())
   train_dataset = SVHN(root=root_dir, split='train', download=True, transform=ToTensor())
@@ -62,12 +62,7 @@ def load_datasets(batch_size, world_size, rank):
   # 1. Generate a DistributedSample instance with num_replicas = world_size
   #    and rank=rank.
   # 2. Set train_loader's sampler to the distributed sampler
-
-  train_sampler = torch.utils.data.distributed.DistributedSampler(
-      dataset,
-      num_replicas=world_size,
-      rank=rank
-  )
+  train_sampler = DistributedSampler(dataset, num_replicas=world_size, rank=rank)
 
   train_loader = torch.utils.data.DataLoader(dataset=dataset,   
                                              batch_size=batch_size,
@@ -124,7 +119,7 @@ def create_model():
 
   # Task 2: Wrap the model in DistributedDataParallel to 
   # make the model train in a distributed fashion.
-  model = nn.parallel.DistributedDataParallel(model)
+  model = torch.nn.parallel.DistributedDataParallel(model)
 
   # Printing sizes of model parameters
   for t in model.parameters():
@@ -159,8 +154,7 @@ def run_epochs(epochs, lr, model, train_loader, val_loader, rank, opt_func=torch
     for epoch in range(epochs):
         # Training Phase 
         for batch in train_loader:
-            images, labels = batch
-
+            images, labels = batch 
             # Task 1: Complete training loop
             # Step 1 Get model prediction, i.e. run the fwd pass
             out = model(images)
@@ -172,7 +166,6 @@ def run_epochs(epochs, lr, model, train_loader, val_loader, rank, opt_func=torch
             loss.backward()
             # Step 5 Apply gradients using optimizer
             optimizer.step()
-
         # Validation phase
         result = evaluate(model, val_loader)
         epoch_report(epoch, result)
@@ -191,11 +184,7 @@ def train(proc_num, args):
     #  init_method = 'env://'
     #  world_size = args.world_size
     #  rank = rank
-
-    dist.init_process_group(backend='gloo',
-                            init_method='env://',
-                            world_size=args.world_size,
-                            rank=rank)
+    dist.init_process_group(backend='gloo', init_method='env://', world_size=args.world_size, rank=rank)
 
     model = create_model()
     train_loader, val_loader = load_datasets(batch_size=args.batch_size, world_size=args.world_size, rank=rank)
