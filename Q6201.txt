@@ -1,0 +1,68 @@
+Namespace(batch_size=64, do_chkpt=False, nodes=2, nr=0, num_proc=1, world_size=2)
+torch.Size([1024, 3072])
+torch.Size([1024])
+torch.Size([512, 1024])
+torch.Size([512])
+torch.Size([256, 512])
+torch.Size([256])
+torch.Size([128, 256])
+torch.Size([128])
+torch.Size([64, 128])
+torch.Size([64])
+torch.Size([32, 64])
+torch.Size([32])
+torch.Size([10, 32])
+torch.Size([10])
+Downloading http://ufldl.stanford.edu/housenumbers/extra_32x32.mat to ./datasets/extra_32x32.mat
+Downloading http://ufldl.stanford.edu/housenumbers/train_32x32.mat to ./datasets/train_32x32.mat
+Downloading http://ufldl.stanford.edu/housenumbers/test_32x32.mat to ./datasets/test_32x32.mat
+Train dataset: <torch.utils.data.dataset.ConcatDataset object at 0x7f7d1827e040>
+Val dataset: Dataset SVHN
+    Number of datapoints: 26032
+    Root location: ./datasets
+    Split: test
+    StandardTransform
+Transform: ToTensor()
+Pre-training accuracy'
+'[{'val_loss': 2.306940793991089, 'val_acc': 0.0914904996752739}]
+Epoch [0], val_loss: 2.2273, val_acc: 0.1959
+Epoch [1], val_loss: 2.2268, val_acc: 0.1959
+Epoch [2], val_loss: 2.2208, val_acc: 0.1959
+Epoch [3], val_loss: 2.0265, val_acc: 0.2206
+Epoch [4], val_loss: 1.6254, val_acc: 0.4102
+Epoch [5], val_loss: 1.7958, val_acc: 0.3962
+Epoch [6], val_loss: 1.3157, val_acc: 0.5593
+Epoch [7], val_loss: 1.1100, val_acc: 0.6534
+Epoch [8], val_loss: 0.7993, val_acc: 0.7600
+Epoch [9], val_loss: 0.7843, val_acc: 0.7653
+Epoch [0], val_loss: 0.6101, val_acc: 0.8216
+Epoch [1], val_loss: 0.6020, val_acc: 0.8242
+Epoch [2], val_loss: 0.5951, val_acc: 0.8262
+Epoch [3], val_loss: 0.5877, val_acc: 0.8279
+Epoch [4], val_loss: 0.5823, val_acc: 0.8295
+Epoch [5], val_loss: 0.5764, val_acc: 0.8309
+Epoch [6], val_loss: 0.5710, val_acc: 0.8321
+Epoch [7], val_loss: 0.5666, val_acc: 0.8340
+Epoch [8], val_loss: 0.5619, val_acc: 0.8349
+Epoch [9], val_loss: 0.5587, val_acc: 0.8364
+Epoch [0], val_loss: 0.5469, val_acc: 0.8398
+Epoch [1], val_loss: 0.5461, val_acc: 0.8401
+Epoch [2], val_loss: 0.5456, val_acc: 0.8401
+Epoch [3], val_loss: 0.5452, val_acc: 0.8405
+Epoch [4], val_loss: 0.5447, val_acc: 0.8406
+Epoch [5], val_loss: 0.5442, val_acc: 0.8406
+Epoch [6], val_loss: 0.5437, val_acc: 0.8409
+Epoch [7], val_loss: 0.5432, val_acc: 0.8412
+Epoch [8], val_loss: 0.5427, val_acc: 0.8412
+Epoch [9], val_loss: 0.5422, val_acc: 0.8413
+Epoch [10], val_loss: 0.5418, val_acc: 0.8416
+Epoch [11], val_loss: 0.5413, val_acc: 0.8417
+Epoch [12], val_loss: 0.5409, val_acc: 0.8417
+Epoch [13], val_loss: 0.5404, val_acc: 0.8418
+Epoch [14], val_loss: 0.5399, val_acc: 0.8420
+Epoch [15], val_loss: 0.5395, val_acc: 0.8423
+Epoch [16], val_loss: 0.5391, val_acc: 0.8424
+Epoch [17], val_loss: 0.5386, val_acc: 0.8424
+Epoch [18], val_loss: 0.5381, val_acc: 0.8425
+Epoch [19], val_loss: 0.5377, val_acc: 0.8426
+8923.803704500198  seconds to train
